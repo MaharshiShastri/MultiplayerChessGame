@@ -1,7 +1,7 @@
 import os
 from tkinter import *
-from tkinter import messagebox
 import sqlite3
+from tkinter import messagebox
 
 conn = sqlite3.connect("Logindb.db")
 cursor = conn.cursor()
@@ -22,11 +22,10 @@ heading = Label(frame, text = "Sign in", fg = "#57a1f8", bg = "#fff", font = ("T
 heading.place(x = 100, y = 5)
 
 def signin():
-    cursor.execute(" " "SELECT password FROM login WHERE email_id = ? " " ", (email_id,))
-    result = cursor.fetchall()
     email_id = user.get()
     password = code.get()
-    result = back.authenticate(email_id, password)
+    cursor.execute(" " "SELECT password FROM login WHERE email_id = ? " " ", (email_id,))
+    result = cursor.fetchall()
     if len(result) == 0:
         messagebox.showerror("Invalid", "Invalid email address, please re-enter")
         return 0
@@ -37,35 +36,50 @@ def signin():
             exit()
         else:
             messagebox.showerror("Invalid", "Invalid password, please re-enter")
+
 def signup():
-    user = Entry(frame, width = 30, fg = "black", border = 0, bg = "#fff", font = ("Times", 11))
-    user.place(x = 30, y = 80)
-    label = Label(frame, text = "Enter new email address: ", fg = "black", bg = "#fff", font = ("Times", 11))
-    label.place(x=0, y = 80)
+    window = Toplevel(root)
+    window.title("Sign up")
+    window.geometry("800x800+300+200")
+    window.configure(bg = "#fff")
+    window.resizable(False,False)
+    frame = Frame(window, width = 350, height = 390, bg = "#fff").place(x = 480, y = 50)
+    heading = Label(frame, text = "Sign up", fg = "#57a1f8", bg = "#fff", font = ("Times", 23,"bold")).place(x = 100, y = 5)
+
+    label = Label(window, text = "Enter new email: ", fg = "black", bg = "#fff", font = ("Times", 9))
+    label.place(x = 0, y = 80)
+    user = Entry(window, width = 30, fg = "black", border = 0, bg = "#fff", font = ("Times", 11))
+    user.place(x = 60, y = 80)
+    Frame(window, width = 295, height = 2, bg = "black").place(x=25, y = 107)
+
+    label1 = Label(window, text = "Enter password:", fg = "black", bg = "#fff", font = ("Times", 9))
+    label1.place(x = 0, y = 150)
+    code = Entry(window, width = 30, fg = "black", border = 0, bg = "#fff", font = ("Times", 11))
+    code.place(x = 60, y = 150)
+    Frame(window, width = 295, height = 2, bg = "black").place(x=25, y = 177)
+
+    def create():
+        email_id = user.get()
+        password = code.get()
+        print("++",email_id, password)
+        val = (email_id, password)
+        cursor.execute(" " " INSERT INTO login VALUES (?, ?)" " ", val)
+        conn.commit()
+        import main
+        main = Main()
+    Button(window, width = 39, pady = 7, text = "Create", bg = "#57a1f8", fg = "white", border = 2, command  = create).place(x = 30, y = 204)
+    window.mainloop()
     
-    code = Entry(frame, width = 30, fg = "black", border = 0, bg = "#fff", font = ("Times", 11))
-    code.place(x = 30, y = 150)
-    label = Label(frame, text = "Enter password : ", fg = "black", bg = "#fff", font = ("Times", 11))
-    label.place(x=0, y = 150)
-
-    Button(frame, width = 39, pady = 7, text = "Create", bg = "#57a1f8", fg = "white", border = 2).place(x = 30, y = 204)
-    
-    email_id = user.get()
-    password = code.get()
-
-    val = (email_id, password)
-    cursor.execute(" " " INSERT INTO login VALUES (?, ?)" " ", val)
-    conn.commit()
-    pass
-
+label = Label(frame, text = "Enter your email: ", fg = "black", bg = "#fff", font = ("Times", 9))
+label.place(x = 0, y = 80)
 user = Entry(frame, width = 30, fg = "black", border = 0, bg = "#fff", font = ("Times", 11))
-user.place(x = 30, y = 80)
-user.insert(0, "Enter your Email-ID")
+user.place(x = 100, y = 80)
 Frame(frame, width = 295, height = 2, bg = "black").place(x=25, y = 107)
 
+label1 = Label(frame, text = "Enter your password:", fg = "black", bg = "#fff", font = ("Times", 9))
+label1.place(x = 0, y = 100)
 code = Entry(frame, width = 30, fg = "black", border = 0, bg = "#fff", font = ("Times", 11))
-code.place(x = 30, y = 150)
-code.insert(0, "Enter your password")
+code.place(x = 100, y = 150)
 Frame(frame, width = 295, height = 2, bg = "black").place(x=25, y = 177)
 
 Button(frame, width = 39, pady = 7, text = "Sign in", bg = "#57a1f8", fg = "white", border = 2, command = signin).place(x = 30, y = 204)
