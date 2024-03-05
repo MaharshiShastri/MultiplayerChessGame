@@ -13,4 +13,7 @@ root.resizable(False,False)
 frame = Frame(root, width = 300, height = 300, bg = "#fff")
 frame.place(x = 400, y = 250)
 
-heading = Label(frame, text = "
+heading = Label(frame, text = "Update password", fg = "#57a1f8", bg = "#fff", font = ("Times", 23, "bold"))
+heading.place(x = 100, y = 5)
+def confirm(password):
+  
