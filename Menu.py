@@ -1,5 +1,7 @@
 import pygame
 import const
+import importlib
+
 
 width = const.WIDTH
 height = const.HEIGHT
@@ -21,11 +23,17 @@ while True:
 
         if ev.type == pygame.MOUSEBUTTONDOWN:
             if 350 <= mouse[0] <= 450 and 200 <= mouse[1] <= 240:
-                import main
+                pygame.quit()
+                module = importlib.import_module("main")
+                break
             elif 275 <= mouse[0] <= 675 and 525 <= mouse[1] <= 590:
-                import history #gameplay history
+                pygame.quit()
+                module = importlib.import_module("history") #gameplay history
+                break
             elif 300 <= mouse[0] <= 500 and 350 <= mouse[1] <= 450:
-                import update #renew password
+                pygame.quit()
+                module = importlib.import_module("update") #renew password
+                break
     screen.fill((60,25,60))            
     mouse = pygame.mouse.get_pos()
     
@@ -34,11 +42,11 @@ while True:
     else:
         pygame.draw.rect(screen, (100,100,100), [350,200,100,40])
         
-    if 275 <= mouse[0] <= 675 and 550 <= mouse[1] <= 590:
+    """if 275 <= mouse[0] <= 675 and 550 <= mouse[1] <= 590:
         pygame.draw.rect(screen,(170,170,170),[275,525,250,40])
     else:
         pygame.draw.rect(screen, (100,100,100), [275,525,250,40])
-        
+        """
     if 300 <= mouse[0] <= 500 and 350 <= mouse[1] <= 450:
         pygame.draw.rect(screen,(170,170,170),[300,350,200,40])
     else:

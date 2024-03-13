@@ -1,6 +1,8 @@
 import pygame
+import importlib
 
-from const import *
+const_module = importlib.import_module("const")
+#from const import *
 
 class Dragger:
 
@@ -32,8 +34,8 @@ class Dragger:
         self.mouseX, self.mouseY = pos # (xcor, ycor)
 
     def save_initial(self, pos):
-        self.initial_row = pos[1] // SQSIZE
-        self.initial_col = pos[0] // SQSIZE
+        self.initial_row = pos[1] // const_module.SQSIZE
+        self.initial_col = pos[0] // const_module.SQSIZE
 
     def drag_piece(self, piece):
         self.piece = piece

@@ -1,6 +1,12 @@
-import sqlite3
-conn = sqlite3.connect("Logindb.db")
+import mysql.connector
+conn = mysql.connector.connect(
+    host = "localhost",
+    user = "root",
+    password = "Maharshi#20",
+    database = "logindb"
+    )
 cursor = conn.cursor()
-command = " " " CREATE TABLE login(email_id varchar(50) PRIMARY KEY, password varchar(50));"""
-cursor.execute(command)
-conn.close()
+login_table = " " " CREATE TABLE login(email_id VARCHAR(50) PRIMARY KEY, pass VARCHAR(50)); " " "
+cursor.execute(login_table)
+moves_table = 
+    

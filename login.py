@@ -1,9 +1,16 @@
 import os
 from tkinter import *
-import sqlite3
+import mysql.connector
 from tkinter import messagebox
+import importlib
 
-conn = sqlite3.connect("Logindb.db")
+
+conn = mysql.connector.connect(
+    host = "localhost",
+    user = "root",
+    password = "Maharshi#20",
+    database = "logindb"
+    )
 cursor = conn.cursor()
 
 root = Tk()
@@ -12,10 +19,10 @@ root.geometry("800x800+300+200")
 root.configure(bg = "#fff")
 root.resizable(False,False)
 
-img = PhotoImage(file = os.path.join("assets/images/") + "banner.png")
+img = PhotoImage(file = os.path.join("assets/images/banner.png"))
 Label(root, image = img, bg = "#fff").place(x=100,y=250)
 
-frame = Frame(root, width = 300, height = 300, bg = "#fff")
+frame = Frame(root, width = 500, height = 500, bg = "#fff")
 frame.place(x = 400, y = 250)
 
 heading = Label(frame, text = "Sign in", fg = "#57a1f8", bg = "#fff", font = ("Times", 23,"bold"))
@@ -24,15 +31,16 @@ heading.place(x = 100, y = 5)
 def signin():
     email_id = user.get()
     password = code.get()
-    cursor.execute(" " "SELECT password FROM login WHERE email_id = ? " " ", (email_id,))
+    check = (email_id,)
+    cursor.execute(" " "SELECT pass FROM login WHERE email_id = %s " " ", check)
     result = cursor.fetchall()
     if len(result) == 0:
         messagebox.showerror("Invalid", "Invalid email address, please re-enter")
         return 0
     for check in result:
         if check[0] == password:
-            import main
-            main = Main()
+            root.destroy()
+            module = importlib.import_module("Menu")
             exit()
         else:
             messagebox.showerror("Invalid", "Invalid password, please re-enter")
@@ -62,10 +70,9 @@ def signup():
         email_id = user.get()
         password = code.get()
         val = (email_id, password)
-        cursor.execute(" " " INSERT INTO login VALUES (?, ?)" " ", val)
+        cursor.execute(" " " INSERT INTO login(email_id, pass) VALUES (%s, %s)" " ", val)
         conn.commit()
         import main
-        main = Main()
     Button(window, width = 39, pady = 6, text = "Create", bg = "#57a1f8", fg = "white", border = 2, command  = create).place(x = 200, y =350)
     window.mainloop()
     window.destroy()
@@ -78,13 +85,13 @@ Frame(frame, width = 295, height = 2, bg = "black").place(x=0, y = 107)
 
 label1 = Label(frame, text = "Enter your password:", fg = "black", bg = "#fff", font = ("Times", 9))
 label1.place(x = 0, y = 130)
-code = Entry(frame, width = 41, fg = "black", border = 3, bg = "#fff", font = ("Times", 11))
+code = Entry(frame, width = 41, fg = "black", border = 3, bg = "#fff", font = ("Times", 11), show = '*')
 code.place(x = 0, y = 150)
 Frame(frame, width = 295, height = 2, bg = "black").place(x=0, y = 177)
+Button(frame, width = 39, pady = 7, text = "Sign in", bg = "#57a1f8", fg = "white", border = 2, command = signin).place(x = 0, y = 204)
 
-Button(frame, width = 39, pady = 7, text = "Sign in", bg = "#57a1f8", fg = "white", border = 2, command = signin).place(x = 30, y = 204)
 label = Label(frame, text = "Don't have an account?", fg = "black", bg = "#fff", font = ("Times", 9))
-label.place(x = 75, y = 270)
+label.place(x = 0, y = 270)
 
 sign_up = Button(frame, width = 6, text = "sign up", border = 0, bg = "#fff", cursor = "plus", fg = "#57a1f8", command = signup)
 sign_up.place(x = 215, y = 270)

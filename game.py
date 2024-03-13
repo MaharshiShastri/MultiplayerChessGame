@@ -1,31 +1,38 @@
 import pygame
+import importlib
 
-from const import *
-from board import Board
-from dragger import Dragger
-from config import Config
-from square import Square
+
+const_module = importlib.import_module("const")
+board_module = importlib.import_module("board")
+dragger_module = importlib.import_module("dragger")
+config_module = importlib.import_module("config")
+square_module = importlib.import_module("square")
+#from const import *
+#from board import Board
+#from dragger import Dragger
+#from config import Config
+#from square import Square
 
 class Game:
 
     def __init__(self):
         self.next_player = 'white'
         self.hovered_sqr = None
-        self.board = Board()
-        self.dragger = Dragger()
-        self.config = Config()
+        self.board = board_module.Board()
+        self.dragger = dragger_module.Dragger()
+        self.config = config_module.Config()
 
     # blit methods
 
     def show_bg(self, surface):
         theme = self.config.theme
         
-        for row in range(ROWS):
-            for col in range(COLS):
+        for row in range(const_module.ROWS):
+            for col in range(const_module.COLS):
                 # color
                 color = theme.bg.light if (row + col) % 2 == 0 else theme.bg.dark
                 # rect
-                rect = (col * SQSIZE, row * SQSIZE, SQSIZE, SQSIZE)
+                rect = (col * const_module.SQSIZE, row * const_module.SQSIZE, const_module.SQSIZE, const_module.SQSIZE)
                 # blit
                 pygame.draw.rect(surface, color, rect)
 
@@ -34,8 +41,8 @@ class Game:
                     # color
                     color = theme.bg.dark if row % 2 == 0 else theme.bg.light
                     # label
-                    lbl = self.config.font.render(str(ROWS-row), 1, color)
-                    lbl_pos = (5, 5 + row * SQSIZE)
+                    lbl = self.config.font.render(str(const_module.ROWS-row), 1, color)
+                    lbl_pos = (5, 5 + row * const_module.SQSIZE)
                     # blit
                     surface.blit(lbl, lbl_pos)
 
@@ -44,14 +51,14 @@ class Game:
                     # color
                     color = theme.bg.dark if (row + col) % 2 == 0 else theme.bg.light
                     # label
-                    lbl = self.config.font.render(Square.get_alphacol(col), 1, color)
-                    lbl_pos = (col * SQSIZE + SQSIZE - 20, HEIGHT - 20)
+                    lbl = self.config.font.render(square_module.Square.get_alphacol(col), 1, color)
+                    lbl_pos = (col * const_module.SQSIZE + const_module.SQSIZE - 20, const_module.HEIGHT - 20)
                     # blit
                     surface.blit(lbl, lbl_pos)
 
     def show_pieces(self, surface):
-        for row in range(ROWS):
-            for col in range(COLS):
+        for row in range(const_module.ROWS):
+            for col in range(const_module.COLS):
                 # piece ?
                 if self.board.squares[row][col].has_piece():
                     piece = self.board.squares[row][col].piece
@@ -60,7 +67,7 @@ class Game:
                     if piece is not self.dragger.piece:
                         piece.set_texture(size=80)
                         img = pygame.image.load(piece.texture)
-                        img_center = col * SQSIZE + SQSIZE // 2, row * SQSIZE + SQSIZE // 2
+                        img_center = col * const_module.SQSIZE + const_module.SQSIZE // 2, row * const_module.SQSIZE + const_module.SQSIZE // 2
                         piece.texture_rect = img.get_rect(center=img_center)
                         surface.blit(img, piece.texture_rect)
 
@@ -75,7 +82,7 @@ class Game:
                 # color
                 color = theme.moves.light if (move.final.row + move.final.col) % 2 == 0 else theme.moves.dark
                 # rect
-                rect = (move.final.col * SQSIZE, move.final.row * SQSIZE, SQSIZE, SQSIZE)
+                rect = (move.final.col * const_module.SQSIZE, move.final.row * const_module.SQSIZE, const_module.SQSIZE, const_module.SQSIZE)
                 # blit
                 pygame.draw.rect(surface, color, rect)
 
@@ -90,7 +97,7 @@ class Game:
                 # color
                 color = theme.trace.light if (pos.row + pos.col) % 2 == 0 else theme.trace.dark
                 # rect
-                rect = (pos.col * SQSIZE, pos.row * SQSIZE, SQSIZE, SQSIZE)
+                rect = (pos.col * const_module.SQSIZE, pos.row * const_module.SQSIZE, const_module.SQSIZE, const_module.SQSIZE)
                 # blit
                 pygame.draw.rect(surface, color, rect)
 
@@ -99,7 +106,7 @@ class Game:
             # color
             color = (180, 180, 180)
             # rect
-            rect = (self.hovered_sqr.col * SQSIZE, self.hovered_sqr.row * SQSIZE, SQSIZE, SQSIZE)
+            rect = (self.hovered_sqr.col * const_module.SQSIZE, self.hovered_sqr.row * const_module.SQSIZE, const_module.SQSIZE, const_module.SQSIZE)
             # blit
             pygame.draw.rect(surface, color, rect, width=3)
 

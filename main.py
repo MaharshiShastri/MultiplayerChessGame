@@ -1,18 +1,23 @@
 import pygame
 import sys
+import importlib
 
-from const import *
-from game import Game
-from square import Square
-from move import Move
+const_module = importlib.import_module("const")
+game_module = importlib.import_module("game")
+square_module = importlib.import_module("square")
+move_module = importlib.import_module("move")
+#from const import *
+#from game import Game
+#from square import Square
+#from move import Move
 
 class Main:
 
     def __init__(self):
         pygame.init()
-        self.screen = pygame.display.set_mode( (WIDTH, HEIGHT) )
+        self.screen = pygame.display.set_mode( (const_module.WIDTH, const_module.HEIGHT) )
         pygame.display.set_caption('Chess')
-        self.game = Game()
+        self.game = game_module.Game()
 
     def mainloop(self):
 
@@ -38,8 +43,8 @@ class Main:
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     dragger.update_mouse(event.pos)
 
-                    clicked_row = dragger.mouseY // SQSIZE
-                    clicked_col = dragger.mouseX // SQSIZE
+                    clicked_row = dragger.mouseY // const_module.SQSIZE
+                    clicked_col = dragger.mouseX // const_module.SQSIZE
 
                     # if clicked square has a piece ?
                     if board.squares[clicked_row][clicked_col].has_piece():
@@ -57,8 +62,8 @@ class Main:
 
                 # mouse motion
                 elif event.type == pygame.MOUSEMOTION:
-                    motion_row = event.pos[1] // SQSIZE
-                    motion_col = event.pos[0] // SQSIZE
+                    motion_row = event.pos[1] // const_module.SQSIZE
+                    motion_col = event.pos[0] // const_module.SQSIZE
 
                     game.set_hover(motion_row, motion_col)
 
@@ -78,13 +83,13 @@ class Main:
                     if dragger.dragging:
                         dragger.update_mouse(event.pos)
 
-                        released_row = dragger.mouseY // SQSIZE
-                        released_col = dragger.mouseX // SQSIZE
+                        released_row = dragger.mouseY // const_module.SQSIZE
+                        released_col = dragger.mouseX // const_module.SQSIZE
 
                         # create possible move
-                        initial = Square(dragger.initial_row, dragger.initial_col)
-                        final = Square(released_row, released_col)
-                        move = Move(initial, final)
+                        initial = square_module.Square(dragger.initial_row, dragger.initial_col)
+                        final = square_module.Square(released_row, released_col)
+                        move = move_module.Move(initial, final)
 
                         # valid move ?
                         if board.valid_move(dragger.piece, move):
