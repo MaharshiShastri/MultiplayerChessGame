@@ -1,0 +1,16 @@
+Note: This is only for windows users, please refer to youtube or other websites for Mac or Linux
+--------------------------------------------------Ensure auto-py-to-exe is installed-------------------------------------------------------------------------
+Step 1) Search for Command  Prompt
+Step 2) Run the command prompt as 'Run as administrator'
+Step 3) Copy the following command 'pip install auto-py-to-exe' and paste into the command prompt
+Step 4) Installation is complete once the CLI is activated
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-------------------------------------------------Turning Python script to executable file---------------------------------------------------------------------
+Step 1) Search for Command  Prompt
+Step 2) Run the command prompt as 'Run as administrator'
+Step 3) Copy the command 'cd' followed by space and enter the location of the python script
+Step 4) Now copy and paste the command 'auto-py-to-exe' in Command Prompt
+Step 5) Your screen will now open a window with the title 'Auto Py to Exe'
+Step 6) Under the 'Script Location' you will have 2 methods to enter your script location. Click on Browse button and select 'login.py'
+Step 7) After selecting the file, you now have 2 options- The output exe should be in single folder(One Directory, default) or the output exe should be a single file(i.e. only executable file itself)
