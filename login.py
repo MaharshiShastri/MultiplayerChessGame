@@ -8,7 +8,7 @@ import importlib
 conn = mysql.connector.connect(
     host = "localhost",
     user = "root",
-    password = "Maharshi#20",
+    password = "<Enter root password>",
     database = "logindb"
     )
 cursor = conn.cursor()
