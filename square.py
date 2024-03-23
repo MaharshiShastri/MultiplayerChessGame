@@ -26,7 +26,7 @@ class Square:
 
     def isempty_or_enemy(self, color):
         return self.isempty() or self.has_enemy_piece(color)
-
+    
     @staticmethod
     def in_range(*args):
         for arg in args:

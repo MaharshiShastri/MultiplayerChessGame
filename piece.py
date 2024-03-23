@@ -12,7 +12,7 @@ class Piece:
         self.texture = texture
         self.set_texture()
         self.texture_rect = texture_rect
-
+        
     def set_texture(self, size=80):
         self.texture = os.path.join(
             f'assets/images/imgs-{size}px/{self.color}_{self.name}.png')
@@ -22,14 +22,13 @@ class Piece:
 
     def clear_moves(self):
         self.moves = []
-
 class Pawn(Piece):
 
     def __init__(self, color):
         self.dir = -1 if color == 'white' else 1
         self.en_passant = False
         super().__init__('pawn', color, 1.0)
-
+    
 class Knight(Piece):
 
     def __init__(self, color):

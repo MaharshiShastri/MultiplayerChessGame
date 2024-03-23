@@ -1,10 +1,10 @@
 import importlib
 
-const_module = importlib.import_module("const")
-square_module = importlib.import_module("square")
-piece_module = importlib.import_module("piece")
-move_module = importlib.import_module("move")
-sound_module = importlib.import_module("sound")
+const_module = importlib.import_module("const")#no extra module
+square_module = importlib.import_module("square")#no extra module
+piece_module = importlib.import_module("piece")#no extra module
+move_module = importlib.import_module("move")#no extra module
+sound_module = importlib.import_module("sound")#no extra module
 
 #from const import *
 #from square import Square
@@ -13,16 +13,15 @@ sound_module = importlib.import_module("sound")
 #from sound import Sound
 import copy
 import os
-#import mysql.connector
+import mysql.connector
 
-'''conn = mysql.connector.connect(
+"""conn = mysql.connector.connect(
     host = "localhost",
     user = "root",
     password = "Maharshi#20",
-    database = "logindb"
-    )
-'''
-cursor = conn.cursor()
+    database = "chess"
+    )"""
+#cursor = conn.cursor()
 class Board:
 
     def __init__(self):
@@ -31,7 +30,7 @@ class Board:
         self._create()
         self._add_pieces('white')
         self._add_pieces('black')
-
+        
     def move(self, piece, move, testing=False):
         initial = move.initial
         final = move.final
@@ -138,7 +137,7 @@ class Board:
                         final = square_module.Square(possible_move_row, col)
                         # create a new move
                         move = move_module.Move(initial, final)
-
+                        
                         # check potencial checks
                         if bool:
                             if not self.in_check(piece, move):
@@ -244,7 +243,22 @@ class Board:
                         final = square_module.Square(possible_move_row, possible_move_col, final_piece)
                         # create new move
                         move = move_module.Move(initial, final)
-                        
+                        #if final_piece != None and square_module.Square.has_enemy_piece(final,piece.color):
+                          #  captured_piece = self.got_captured(final_piece)
+                            #print("New move at ",possible_move_row, possible_move_col, "and has ",captured_piece)
+                        #enter the move in DB
+                        #captured_piece = get_piece()
+                        #sql = """ INSERT INTO chess.move(initialmovecol,initialmoverow, finalmoverow, finalmovecol, captured, piece, captued_piece)
+                        #              % VALUES (%s, %s, %s, %s, %s, %s, %s)"""
+                        #if captured_piece == None:
+                            #values = (col, row, possible_move_row, possible_move_col, 0, self.piece, captured_piece)
+                            #cursor.execute(sql, values)
+                            #conn.commit()
+                        #else:
+                            #values = (col, row, possible_move_row, possible_move_col, 1, self.piece, captured_piece)
+                            #cursor.execute(sql, values)
+                            #conn.commit()
+
                         # check potencial checks
                         if bool:
                             if not self.in_check(piece, move):
@@ -478,4 +492,8 @@ class Board:
         # king
         self.squares[row_other][4] = square_module.Square(row_other, 4, piece_module.King(color))
 
-conn.close()
+    @staticmethod
+    def got_captured(piece):
+        return piece.name
+    '''color1, color2'''
+#sconn.close()

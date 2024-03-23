@@ -8,7 +8,7 @@ import importlib
 conn = mysql.connector.connect(
     host = "localhost",
     user = "root",
-    password = "<Enter root password>",
+    password = "Maharshi#20",
     database = "logindb"
     )
 cursor = conn.cursor()
@@ -41,6 +41,7 @@ def signin():
         if check[0] == password:
             root.destroy()
             module = importlib.import_module("Menu")
+            conn.close()
             exit()
         else:
             messagebox.showerror("Invalid", "Invalid password, please re-enter")
@@ -72,7 +73,8 @@ def signup():
         val = (email_id, password)
         cursor.execute(" " " INSERT INTO login(email_id, pass) VALUES (%s, %s)" " ", val)
         conn.commit()
-        import main
+        module = importlib.import_module("Menu")
+        conn.close()
     Button(window, width = 39, pady = 6, text = "Create", bg = "#57a1f8", fg = "white", border = 2, command  = create).place(x = 200, y =350)
     window.mainloop()
     window.destroy()

@@ -1,8 +1,7 @@
 import pygame
-import const
 import importlib
 
-
+const = importlib.import_module("const")
 width = const.WIDTH
 height = const.HEIGHT
 pygame.init()

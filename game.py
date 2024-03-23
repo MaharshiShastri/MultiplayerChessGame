@@ -1,18 +1,24 @@
 import pygame
 import importlib
+import mysql.connector
 
-
-const_module = importlib.import_module("const")
+const_module = importlib.import_module("const")#no extra modules
 board_module = importlib.import_module("board")
 dragger_module = importlib.import_module("dragger")
 config_module = importlib.import_module("config")
-square_module = importlib.import_module("square")
+square_module = importlib.import_module("square")#no extra module
 #from const import *
 #from board import Board
 #from dragger import Dragger
 #from config import Config
 #from square import Square
-
+"""conn = mysql.connector.connect(
+    host = "localhost",
+    user = "root",
+    password = "Maharshi#20",
+    database = "logindb"
+    )
+cursor = conn.cursor()"""
 class Game:
 
     def __init__(self):
@@ -62,7 +68,10 @@ class Game:
                 # piece ?
                 if self.board.squares[row][col].has_piece():
                     piece = self.board.squares[row][col].piece
-                    
+                    """sql = " " "INSERT INTO move(initialmovecol, initialmoverow, piece) VALUES(%s, %s, %s);" " "
+                    values = (col, row, piece)
+                    cursor.execute(sql,values)
+                    conn.commit()"""
                     # all pieces except dragger piece
                     if piece is not self.dragger.piece:
                         piece.set_texture(size=80)
@@ -129,3 +138,5 @@ class Game:
 
     def reset(self):
         self.__init__()
+
+#conn.close()

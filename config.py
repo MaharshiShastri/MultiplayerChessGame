@@ -2,7 +2,7 @@ import pygame
 import os
 import importlib
 
-sound_module = importlib.import_module("sound")
+sound_module = importlib.import_module("sound")#no extra module
 theme_module = importlib.import_module("theme")
 #from sound import Sound
 #from theme import Theme

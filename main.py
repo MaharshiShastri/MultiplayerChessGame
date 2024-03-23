@@ -2,10 +2,10 @@ import pygame
 import sys
 import importlib
 
-const_module = importlib.import_module("const")
+const_module = importlib.import_module("const")#no extra modules
 game_module = importlib.import_module("game")
-square_module = importlib.import_module("square")
-move_module = importlib.import_module("move")
+square_module = importlib.import_module("square")#no extra modules
+move_module = importlib.import_module("move")#no extra modules
 #from const import *
 #from game import Game
 #from square import Square
@@ -52,7 +52,7 @@ class Main:
                         # valid piece (color) ?
                         if piece.color == game.next_player:
                             board.calc_moves(piece, clicked_row, clicked_col, bool=True)
-                            dragger.save_initial(event.pos)
+                            dragger.save_initial(event.pos, piece.name)
                             dragger.drag_piece(piece)
                             # show methods
                             game.show_bg(screen)
@@ -79,22 +79,23 @@ class Main:
 
                 # click release
                 elif event.type == pygame.MOUSEBUTTONUP:
-
                     if dragger.dragging:
                         dragger.update_mouse(event.pos)
 
                         released_row = dragger.mouseY // const_module.SQSIZE
                         released_col = dragger.mouseX // const_module.SQSIZE
-
+                        
                         # create possible move
-                        initial = square_module.Square(dragger.initial_row, dragger.initial_col)
+                        initial = square_module.Square(dragger.initial_row, dragger.initial_col, dragger.piece)
                         final = square_module.Square(released_row, released_col)
                         move = move_module.Move(initial, final)
+                        print(initial.piece.name, initial.row, initial.col)
 
                         # valid move ?
                         if board.valid_move(dragger.piece, move):
                             # normal capture
                             captured = board.squares[released_row][released_col].has_piece()
+                                                            
                             board.move(dragger.piece, move)
 
                             board.set_true_en_passant(dragger.piece)
