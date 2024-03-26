@@ -14,3 +14,9 @@ class Move:
 
     def __eq__(self, other):
         return self.initial == other.initial and self.final == other.final
+
+    def has_moved(self):
+        if self.initial == self.final:
+            return 0
+        return 1
+    

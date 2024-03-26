@@ -6,35 +6,22 @@ piece_module = importlib.import_module("piece")#no extra module
 move_module = importlib.import_module("move")#no extra module
 sound_module = importlib.import_module("sound")#no extra module
 
-#from const import *
-#from square import Square
-#from piece import *
-#from move import Move
-#from sound import Sound
+
 import copy
 import os
 import mysql.connector
 
-"""conn = mysql.connector.connect(
-    host = "localhost",
-    user = "root",
-    password = "Maharshi#20",
-    database = "chess"
-    )"""
-#cursor = conn.cursor()
 class Board:
-
+    
     def __init__(self):
         self.squares = [[0, 0, 0, 0, 0, 0, 0, 0] for col in range(const_module.COLS)]
         self.last_move = None
         self._create()
         self._add_pieces('white')
         self._add_pieces('black')
-        
     def move(self, piece, move, testing=False):
         initial = move.initial
         final = move.final
-        
         en_passant_empty = self.squares[final.row][final.col].isempty()
 
         # console board move update
@@ -48,10 +35,6 @@ class Board:
                 # console board move update
                 self.squares[initial.row][initial.col + diff].piece = None
                 self.squares[final.row][final.col].piece = piece
-               #command = ''' INSERT INTO moves(initial_move, final_move, capture, piece) VALUES(%s,%s,%s,%s)'''
-               # values = (initial, final, True, "Pawn")
-                #cursor.execute(command, values)
-                #cursor.commit()
                 if not testing:
                     sound = sound_module.Sound(
                         os.path.join('assets/sounds/capture.wav'))
@@ -60,9 +43,7 @@ class Board:
             # pawn promotion
             else:
                 self.check_promotion(piece, final)
-                #command = ''' INSERT INTO moves(initial_move, final_move, capture, piece) VALUES(%s,%s,%s,%s)'''
-                #values = (initial, final, False, "Pawn")
-
+            
         # king castling
         if isinstance(piece, piece_module.King):
             if self.castling(initial, final) and not testing:
@@ -243,22 +224,6 @@ class Board:
                         final = square_module.Square(possible_move_row, possible_move_col, final_piece)
                         # create new move
                         move = move_module.Move(initial, final)
-                        #if final_piece != None and square_module.Square.has_enemy_piece(final,piece.color):
-                          #  captured_piece = self.got_captured(final_piece)
-                            #print("New move at ",possible_move_row, possible_move_col, "and has ",captured_piece)
-                        #enter the move in DB
-                        #captured_piece = get_piece()
-                        #sql = """ INSERT INTO chess.move(initialmovecol,initialmoverow, finalmoverow, finalmovecol, captured, piece, captued_piece)
-                        #              % VALUES (%s, %s, %s, %s, %s, %s, %s)"""
-                        #if captured_piece == None:
-                            #values = (col, row, possible_move_row, possible_move_col, 0, self.piece, captured_piece)
-                            #cursor.execute(sql, values)
-                            #conn.commit()
-                        #else:
-                            #values = (col, row, possible_move_row, possible_move_col, 1, self.piece, captured_piece)
-                            #cursor.execute(sql, values)
-                            #conn.commit()
-
                         # check potencial checks
                         if bool:
                             if not self.in_check(piece, move):
@@ -492,8 +457,3 @@ class Board:
         # king
         self.squares[row_other][4] = square_module.Square(row_other, 4, piece_module.King(color))
 
-    @staticmethod
-    def got_captured(piece):
-        return piece.name
-    '''color1, color2'''
-#sconn.close()
