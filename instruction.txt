@@ -1,1 +1,4 @@
-
+AWS RDS API: https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/ProgrammingGuide.html
+AWS RDS API ACTION: https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_Operations.html
+AWS RDS QUERY VIA API: https://aws.amazon.com/blogs/database/query-your-aws-database-from-your-serverless-application/
+GET data from AWS RDS: https://www.askpython.com/python/examples/pull-data-from-an-api
