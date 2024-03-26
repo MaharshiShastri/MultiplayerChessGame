@@ -4,6 +4,6 @@ and debugged by RonitBoi(https://github.com/RonitBoi). Modules CreateTable, hist
 of a simple chess game. The prowess of python is the extensive collection of libraries from connecting and performing opearations on databases to calling AWS resources to making games(pygame library). Python is the future,
 the sooner you learn its libraries, the better your chances at software development. 
 
-Note: I am not promoting AWS in any form, but I have used Amazon WebServices' GameFleet to perform multiplayer session based game. It requires you to create an executable(instructions will be written in instruction.txt)
+Note: I am not promoting AWS in any form, but I have used Amazon WebServices' GameFleet to perform multiplayer session based game. It requires you to create an executable.
 
 This is it! Hope you can rate us or provide us with feedback or fork this to your project 😊
