@@ -2,10 +2,10 @@ import json
 import pymysql
 
 conn = pymysql.connect(host = "chess.czagoc02se2n.ap-south-1.rds.amazonaws.com",
-user = "root",
-password = "Maharshi#30",
+user = "<user-level>",
+password = "<pasword>",
 port = 3306,
-database = "chess"
+database = "<dbname>"
 )
 cursor = conn.cursor()
 GET_RAW_PATH = "/getUser"
