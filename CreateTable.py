@@ -1,8 +1,8 @@
 import mysql.connector
 conn = mysql.connector.connect(
     host = "localhost",
-    user = "root",
-    password = "Maharshi#20",
+    user = "<access-level>",
+    password = "<password>",
     database = "logindb"
     )
 cursor = conn.cursor()
