@@ -9,7 +9,6 @@ sound_module = importlib.import_module("sound")#no extra module
 
 import copy
 import os
-import mysql.connector
 
 class Board:
     
