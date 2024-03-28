@@ -3,7 +3,7 @@ conn = mysql.connector.connect(
     host = "localhost",
     user = "<access-level>",
     password = "<password>",
-    database = "logindb"
+    database = "chess"
     )
 cursor = conn.cursor()
 login_table = " " " CREATE TABLE login(email_id VARCHAR(50) NOT NULL PRIMARY KEY, pass VARCHAR(50)); " " "
