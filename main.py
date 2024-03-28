@@ -10,8 +10,8 @@ move_module = importlib.import_module("move")#no extra modules
 
 conn = mysql.connector.connect(
     host = "localhost",
-    user = "root",
-    password = "Maharshi#20",
+    user = "<access-level>",
+    password = "<password>",
     database = "chess"
     )
 
