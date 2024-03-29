@@ -65,7 +65,7 @@ class Main:
                             game.show_pieces(screen)
 
                 # mouse motion
-                elif event.type == pygame.MOUSEMOTION:
+                elif event.type == pygame.MOUSEMOTION:#remaining architecture
                     motion_row = event.pos[1] // const_module.SQSIZE
                     motion_col = event.pos[0] // const_module.SQSIZE
 
